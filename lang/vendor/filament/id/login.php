@@ -16,6 +16,11 @@ return [
 
     'fields' => [
 
+        'login' => 'Username',
+        'login' => [
+            'label' => 'Username'
+        ],
+
         'email' => [
             'label' => 'Alamat Email',
         ],
