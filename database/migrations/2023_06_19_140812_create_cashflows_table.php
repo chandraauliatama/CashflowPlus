@@ -11,15 +11,14 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('users', function (Blueprint $table) {
+        Schema::create('cashflows', function (Blueprint $table) {
             $table->id();
-            $table->string('username')->unique();
-            $table->enum('role', ['leader', 'user'])->default('user');
+            $table->string('title');
+            $table->enum('type', ['income', 'expense']);
+            $table->float('amount');
+            $table->foreignId('user_id')->restrictOnDelete();
             $table->foreignId('group_id')->restrictOnDelete();
-            $table->string('email')->unique()->nullable();
-            $table->timestamp('email_verified_at')->nullable();
-            $table->string('password');
-            $table->rememberToken();
+            $table->foreignId('category_id')->restrictOnDelete();
             $table->timestamps();
         });
     }
@@ -29,6 +28,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('users');
+        Schema::dropIfExists('cashflows');
     }
 };
