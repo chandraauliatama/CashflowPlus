@@ -16,6 +16,7 @@ use Filament\Tables\Actions\DeleteAction;
 use Filament\Tables\Columns\BadgeColumn;
 use Filament\Tables\Columns\IconColumn;
 use Filament\Tables\Columns\TextColumn;
+use Filament\Tables\Filters\SelectFilter;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Hash;
@@ -60,7 +61,7 @@ class UserResource extends Resource
         return $table
             ->columns([
                 BadgeColumn::make('role')
-                    ->enum(['leader' => 'Leader', 'user' => 'User'])
+                    ->enum(['leader' => 'Pemimpin', 'user' => 'Anggota'])
                     ->colors(['danger' => 'leader', 'success' => 'user'])
                     ->searchable()->sortable(),
                 TextColumn::make('username')->prefix('Username: ')
@@ -69,7 +70,11 @@ class UserResource extends Resource
                     ->date()->prefix('Dibuat Pada: ')->sortable(),
             ])
             ->filters([
-                //
+                SelectFilter::make('role')->label('Tipe Akun')
+                    ->options([
+                        'leader' => 'Pemimpin',
+                        'user' => 'Anggota'
+                    ])
             ])
             ->actions([
                 DeleteAction::make('Hapus Akun')->hidden(fn($record) => $record->id == auth()->id() || auth()->user()->role != 'leader'),
@@ -119,7 +124,6 @@ class UserResource extends Resource
             ])
             ->contentGrid([
                 'md' => 2,
-                'xl' => 3,
             ]);
     }
 
