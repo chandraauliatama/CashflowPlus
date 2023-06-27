@@ -110,7 +110,7 @@ class CategoryResource extends Resource
                             'type' => $data['jenis'],
                         ]);
 
-                        return Notification::make()->success()->title('Pengguna Baru Berhasil Ditambahkan!')->send();
+                        return Notification::make()->success()->title('Kategori Baru Berhasil Ditambahkan!')->send();
                     }),
             ])
              ->contentGrid([
