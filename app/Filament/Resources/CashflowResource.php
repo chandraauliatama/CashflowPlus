@@ -2,6 +2,8 @@
 
 namespace App\Filament\Resources;
 
+use AlperenErsoy\FilamentExport\Actions\FilamentExportBulkAction;
+use AlperenErsoy\FilamentExport\Actions\FilamentExportHeaderAction;
 use App\Filament\Resources\CashflowResource\Pages;
 use App\Filament\Resources\CashflowResource\RelationManagers;
 use App\Models\Cashflow;
@@ -128,8 +130,10 @@ class CashflowResource extends Resource
             ])
             ->bulkActions([
                 Tables\Actions\DeleteBulkAction::make(),
+                FilamentExportBulkAction::make('export')
             ])
             ->headerActions([
+                FilamentExportHeaderAction::make('export'),
                 Action::make('Masukan Catatan Baru')
                     ->button()
                     ->requiresConfirmation()
