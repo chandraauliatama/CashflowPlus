@@ -15,10 +15,11 @@ return new class extends Migration
             $table->id();
             $table->string('title');
             $table->enum('type', ['income', 'expense']);
-            $table->float('amount');
+            $table->decimal('amount', 20);
             $table->foreignId('user_id')->restrictOnDelete();
             $table->foreignId('group_id')->restrictOnDelete();
             $table->foreignId('category_id')->restrictOnDelete();
+            $table->timestamp('transaction_time');
             $table->timestamps();
         });
     }
